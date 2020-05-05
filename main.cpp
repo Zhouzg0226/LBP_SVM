@@ -1,19 +1,25 @@
 
-#include"LBP.h"
+#include"Classify.h"
 
-#define CELL_SIZE   16
 
 int main(int argc, char *argv[])
 {
-	LBP lbp;
-	Mat srcImage = imread("aqyh.jpg", 0);
-	// extract feature
-	double time1_ExtractFeature = getTickCount();
-	Mat featureVectorOfTestImage;
-	lbp.ComputeLBPFeatureVector_Rotation_Uniform(srcImage, Size(CELL_SIZE, CELL_SIZE), featureVectorOfTestImage);
-	if (featureVectorOfTestImage.empty())
-		return -1;
-	double time2_ExtractFeature = getTickCount();
+        string datapath = "C:\\Users\\zhouz\\Desktop\\MNIST";
+	Classify m_classify(datapath,
+		SVM::C_SVC,  // svmType
+		SVM::LINEAR, // kernel
+		1,   // c
+		0,   // coef
+		0,   // degree
+		1,   // gamma
+		0,   // nu
+		0);  // p
+
+	long lret = m_classify.Train();
+
+	cv::Mat img = imread("3_224.jpg", 0);
+	string predictClass;
+	lret = m_classify.Predict(img, &predictClass);
 
 	return 0;
 
