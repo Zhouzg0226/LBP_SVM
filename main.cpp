@@ -1,7 +1,7 @@
 
 #include"LBP.h"
 
-#define CELL_SIZE   128
+#define CELL_SIZE   16
 
 int main(int argc, char *argv[])
 {
